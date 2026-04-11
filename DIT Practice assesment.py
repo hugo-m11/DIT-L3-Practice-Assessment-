@@ -1,11 +1,20 @@
 from tkinter import *
 
+class People:
+    def __init__(self, name, age, phone):
+        self.name = name 
+        self.age = age
+        self.phone = phone
+        
+
 class SimpleGUI:
     def __init__(self, parent):
         self.input_frame = Frame(parent)
         self.display_frame = Frame(parent)
 
         self.input_frame.pack()
+
+        self.people = []
 
         self.name_thing = StringVar()
         self.age_thing = StringVar()
@@ -40,13 +49,18 @@ class SimpleGUI:
         age = self.age_thing.get()
         phone = self.v.get()
 
-        print(name)
-        print(age)
-        print(phone)
+        new_person = People(name, age, phone)
+        self.people.append(new_person)
+        
+        print(len(self.people))
+
         
 
 
+
+
 if __name__ == "__main__":
+    
     root = Tk()
     Thing = SimpleGUI(root)
     root.mainloop()
