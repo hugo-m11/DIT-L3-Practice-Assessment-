@@ -18,11 +18,6 @@ class SimpleGUI:
 
         self.people = []
 
-        self.switch_frame_button_one = Button(self.input_frame, text="Click", command=self.switch_frame_two)
-        self.switch_frame_button_one.pack()
-        self.switch_frame_button_two = Button(self.display_frame, text="Click", command=self.switch_frame_one)
-        self.switch_frame_button_two.pack()
-
         self.display_name = Label(self.display_frame, text="Name: ")
         self.display_name.pack()
 
@@ -38,8 +33,10 @@ class SimpleGUI:
         self.prev_button = Button(self.display_frame, text="Previous")
         self.prev_button.pack()
 
-        self.back_button = Button(self.display_frame, text="Add New Person")
-        self.back_button.pack()
+        self.switch_frame_button_two = Button(self.display_frame, text="Add New Person", command=self.switch_frame_one)
+        self.switch_frame_button_two.pack()
+
+        
 
         self.name_thing = StringVar()
         self.age_thing = StringVar()
