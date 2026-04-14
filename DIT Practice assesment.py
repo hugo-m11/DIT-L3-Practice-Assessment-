@@ -1,12 +1,13 @@
 from tkinter import *
 
+#class for making objects 
 class People:
     def __init__(self, name, age, phone):
         self.name = name 
         self.age = age
         self.phone = phone
         
-
+#main class 
 class SimpleGUI:
     def __init__(self, parent):
         self.input_frame = Frame(parent)
@@ -30,7 +31,7 @@ class SimpleGUI:
         self.next_button = Button(self.display_frame, text="Next", command=self.next_button_method)
         self.next_button.pack()
 
-        self.prev_button = Button(self.display_frame, text="Previous")
+        self.prev_button = Button(self.display_frame, text="Previous", command=self.previous_button_method)
         self.prev_button.pack()
 
         self.switch_frame_button_two = Button(self.display_frame, text="Add New Person", command=self.switch_frame_one)
@@ -69,16 +70,17 @@ class SimpleGUI:
         self.show_data_button = Button(self.input_frame, text="show data", command= self.show_all)
         self.show_data_button.pack()
 
-    
+#switches to the input frame  
     def switch_frame_one(self):
         self.display_frame.pack_forget()
         self.input_frame.pack()
 
-
+#switches to the display frame
     def switch_frame_two(self):
         self.input_frame.pack_forget()
         self.display_frame.pack()
     
+#function that appends user inputs into a list for display
     def enter_data(self):
         name = self.name_thing.get()
         age = self.age_thing.get()
@@ -86,6 +88,7 @@ class SimpleGUI:
         new_person = People(name, age, phone)
         self.people.append(new_person)
 
+#function that shows the user inputs, if nothing is there, nothing happens
     def show_all(self):
         if len(self.people) == 0:
             print("")
@@ -97,7 +100,7 @@ class SimpleGUI:
         self.display_phone.config(text=self.people[self.current_index].phone)
         self.switch_frame_two()
 
-    
+#function that allows to go through the list of inputs
     def next_button_method(self):
         if self.current_index < len(self.people) - 1:
             self.current_index += 1
@@ -105,9 +108,16 @@ class SimpleGUI:
             self.display_age.config(text=self.people[self.current_index].age)
             self.display_phone.config(text=self.people[self.current_index].phone)
 
-        
+#function that allows to go back through the list of inputs 
+    def previous_button_method(self):
+        if self.current_index > 0:
+            self.current_index -= 1
+            self.display_name.config(text=self.people[self.current_index].name)
+            self.display_age.config(text=self.people[self.current_index].age)
+            self.display_phone.config(text=self.people[self.current_index].phone)
 
-
+    
+#main routine 
 if __name__ == "__main__":
     
     root = Tk()
