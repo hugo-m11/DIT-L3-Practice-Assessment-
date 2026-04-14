@@ -9,8 +9,8 @@ class People:
 
 class SimpleGUI:
     def __init__(self, parent):
-        self.input_frame = Frame(parent, bg="pink")
-        self.display_frame = Frame(parent, bg="blue")
+        self.input_frame = Frame(parent)
+        self.display_frame = Frame(parent)
 
         self.current_index = 0
 
@@ -18,21 +18,21 @@ class SimpleGUI:
 
         self.people = []
 
-        b1 = Button(self.input_frame, text="Click", command=self.switch_frame_two)
-        b1.pack()
-        b2 = Button(self.display_frame, text="Click", command=self.switch_frame_one)
-        b2.pack()
+        self.switch_frame_button_one = Button(self.input_frame, text="Click", command=self.switch_frame_two)
+        self.switch_frame_button_one.pack()
+        self.switch_frame_button_two = Button(self.display_frame, text="Click", command=self.switch_frame_one)
+        self.switch_frame_button_two.pack()
 
-        self.display_name = Label(self.display_frame, text="")
+        self.display_name = Label(self.display_frame, text="Name: ")
         self.display_name.pack()
 
-        self.display_age = Label(self.display_frame, text="")
+        self.display_age = Label(self.display_frame, text="Age: ")
         self.display_age.pack()
 
-        self.display_phone = Label(self.display_frame, text="")
+        self.display_phone = Label(self.display_frame, text="Has phone: ")
         self.display_phone.pack()
 
-        self.next_button = Button(self.display_frame, text="Next")
+        self.next_button = Button(self.display_frame, text="Next", command=self.next_button_method)
         self.next_button.pack()
 
         self.prev_button = Button(self.display_frame, text="Previous")
@@ -40,12 +40,6 @@ class SimpleGUI:
 
         self.back_button = Button(self.display_frame, text="Add New Person")
         self.back_button.pack()
-
-
-
-
-
-
 
         self.name_thing = StringVar()
         self.age_thing = StringVar()
@@ -77,6 +71,7 @@ class SimpleGUI:
 
         self.show_data_button = Button(self.input_frame, text="show data", command= self.show_all)
         self.show_data_button.pack()
+
     
     def switch_frame_one(self):
         self.display_frame.pack_forget()
@@ -86,8 +81,6 @@ class SimpleGUI:
     def switch_frame_two(self):
         self.input_frame.pack_forget()
         self.display_frame.pack()
-
-
     
     def enter_data(self):
         name = self.name_thing.get()
@@ -102,11 +95,20 @@ class SimpleGUI:
             return
 
         self.current_index = 0
+        self.display_name.config(text=self.people[self.current_index].name)
+        self.display_age.config(text=self.people[self.current_index].age)
+        self.display_phone.config(text=self.people[self.current_index].phone)
         self.switch_frame_two()
 
+    
+    def next_button_method(self):
+        if self.current_index < len(self.people) - 1:
+            self.current_index += 1
+            self.display_name.config(text=self.people[self.current_index].name)
+            self.display_age.config(text=self.people[self.current_index].age)
+            self.display_phone.config(text=self.people[self.current_index].phone)
+
         
-
-
 
 
 if __name__ == "__main__":
